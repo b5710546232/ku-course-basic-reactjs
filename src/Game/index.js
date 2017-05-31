@@ -1,5 +1,6 @@
 import React from 'react'
 import Timer from '../Timer'
+import Score from '../Score'
 export default class Game extends React.Component{
     state = {
         clicks:0,
@@ -14,7 +15,7 @@ export default class Game extends React.Component{
         let message
         let timer =null
         if(this.state.gameStart){
-            message = this.state.clicks
+            message = <Score score={this.state.clicks} />
             timer =  (<Timer timeLimit={this.timeLimit} timeStart={this.timeStart} />)
         }else{
             message = 'กดตรงไหนก็ได้เพื่อเริ่ม'
@@ -35,11 +36,12 @@ export default class Game extends React.Component{
 
     let messageBox = document.getElementById('message')
 
-    let timeDiff = this.getTimeLeft()
-        if(this.state.gameStart && timeDiff <= 0){
-            clearInterval(this.interval)
-            window.removeEventListener('click', this.onClick)
-        }
+    // if(this.state.gameStart && this.getTimeLeft() <= 0){
+    //     clearInterval(this.interval)
+    //     window.removeEventListener('click', this.onClick)
+    // }
+
+
 
     this.setState({
         clicks:this.state.clicks + 1,
@@ -48,6 +50,10 @@ export default class Game extends React.Component{
     if (!this.state.gameStart) {
         this.timeStart = new Date().getTime()
         this.setState({gameStart:true})
+
+        setTimeout(()=>{
+            this.props.onGameFinish(this.state.clicks)
+        },this.timeLimit)
 
     }
 }

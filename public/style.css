@@ -20,6 +20,13 @@
     width: 100%;
     color: #e9e9e9
   }
+  #high-score-header{
+    color: #e9e9e9
+  }
+
+  .my-text{
+    color: #e9e9e9
+  }
   
   body {
     user-select: none;

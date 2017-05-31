@@ -27,11 +27,13 @@ export default class Timer extends React.Component {
         return  timeDiff 
 
     }
+    componentWillUnmount(){
+        clearInterval(this.interval)
+    }
     startTimer(){
     
      this.interval = setInterval(() => {
         this.forceUpdate()
-
     }, 100)
 
 }
