@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "./public/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 187);
@@ -9605,6 +9605,8 @@ var App = function (_React$Component) {
             }
 
             _this.setState({ page: 'highscore' });
+        }, _this.onPlayAgain = function () {
+            _this.setState({ page: 'game' });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -9615,7 +9617,7 @@ var App = function (_React$Component) {
                 case 'game':
                     return _react2.default.createElement(_Game2.default, { onGameFinish: this.onGameFinish });
                 case 'highscore':
-                    return _react2.default.createElement(_HightScore2.default, { highscore: this.highscore.highscore });
+                    return _react2.default.createElement(_HightScore2.default, { highscore: this.highscore.highscore, onPlayAgain: this.onPlayAgain });
 
                 default:
                     return _react2.default.createElement(
@@ -22174,18 +22176,10 @@ var Game = function (_React$Component) {
 
         }, _this.timeStart = 0, _this.timeLimit = 5000, _this.interval = null, _this.onClick = function () {
 
-            var messageBox = document.getElementById('message');
-
-            // if(this.state.gameStart && this.getTimeLeft() <= 0){
-            //     clearInterval(this.interval)
-            //     window.removeEventListener('click', this.onClick)
-            // }
-
-
             _this.setState({
                 clicks: _this.state.clicks + 1
             });
-            messageBox.style.fontSize = _this.state.clicks + 12 + 'pt';
+
             if (!_this.state.gameStart) {
                 _this.timeStart = new Date().getTime();
                 _this.setState({ gameStart: true });
@@ -22225,9 +22219,14 @@ var Game = function (_React$Component) {
             );
         }
     }, {
-        key: 'componentWillMount',
-        value: function componentWillMount() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             window.addEventListener('click', this.onClick);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('click', this.onClick);
         }
     }, {
         key: 'getTimeLeft',
@@ -22345,7 +22344,7 @@ var Hightscore = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     "button",
-                    null,
+                    { onClick: this.props.onPlayAgain },
                     "Play again"
                 )
             );
