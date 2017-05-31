@@ -7,7 +7,7 @@ class Game extends React.Component{
     timeStart = 0
     timeLimit = 5000
     interval = null
-
+    
     render(){
         let message
         if(this.state.gameStart){
@@ -15,11 +15,12 @@ class Game extends React.Component{
         }else{
             message = 'กดตรงไหนก็ได้เพื่อเริ่ม'
         }
+        let timer = `เหลือเวลาอยู่ ${ this.formatTime(this.getTimeLeft()) } sec`
         return(
             <div>
-            <div id="title" className="title">CLICKER</div>
+            <div id="title" className="title">REACT-CLICKER</div>
             <div id="message">{message}</div>
-            <div id="timer"></div>
+            <div id="timer">{timer}</div>
             </div>
         )
     }
@@ -47,20 +48,29 @@ class Game extends React.Component{
 startTimer(){
     
      this.interval = setInterval(() => {
-        let currentTime = new Date().getTime()
-
-        let timeDiff = (this.timeLimit + this.timeStart) - currentTime
-        if (timeDiff < 0) {
-            timeDiff = 0
+        let timeDiff = this.getTimeLeft()
+        if (timeDiff <= 0) {
             clearInterval(this.interval)
             window.removeEventListener('click', this.onClick)
         }
-
-        timer.textContent = `เหลือเวลาอยู่ ${ (timeDiff/ 1000).toFixed(1) } sec`
+        this.forceUpdate()
 
     }, 100)
 
 }
+
+formatTime(time){
+    return (time/1000).toFixed(1)
+}
+
+getTimeLeft(){
+    let currentTime = new Date().getTime()
+    let timeDiff = (this.timeLimit + this.timeStart) - currentTime
+    if(timeDiff<0) timeDiff = 0
+    return  timeDiff 
+
+}
+
 
 
 }
