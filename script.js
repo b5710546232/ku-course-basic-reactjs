@@ -15,10 +15,10 @@ class Game extends React.Component{
         )
     }
     componentWillMount(){
-        window.addEventListener('click', this.onClick.bind(this))
+        window.addEventListener('click', this.onClick)
     }
 
-    onClick() {
+    onClick= ()=> {
 
     let messageBox = document.getElementById('message')
     let timer = document.getElementById('timer')
