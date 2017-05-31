@@ -8,7 +8,9 @@
     text-align: center;
     color: #cc7a6f;
     width: 100%;
+    position: absolute;
     top: 50%;
+    vertical-align: text-top;
   }
   
   #timer {
