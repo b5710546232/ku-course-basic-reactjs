@@ -1,7 +1,19 @@
   .title {
     color: rebeccapurple;
+    text-align: center;
+    font-size :48pt;
   }
-  
+  #message{
+    text-align: center;
+  }
+  #timer{
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%
+  }
   body {
     user-select: none;
+    margin: 0;
+    background: darksalmon
   }
